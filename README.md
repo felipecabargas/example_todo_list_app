@@ -1,24 +1,48 @@
-# README
+**Rails**
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+```bash
+rails new example_app
 
-Things you may want to cover:
+rails db:create
 
-* Ruby version
+rails generate scaffold List name:string
 
-* System dependencies
+rails generate scaffold Task body:string completed:boolean list:references
+```
 
-* Configuration
+Inside `Gemfile` add 
 
-* Database creation
+```ruby
+gem "pry-rails"
+```
 
-* Database initialization
+Then run
 
-* How to run the test suite
+```
+bundle install
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+Go to `config/routes.rb` and add
 
-* Deployment instructions
+```ruby
+resources :lists do
+  resources :tasks
+end
 
-* ...
+root to: "lists#index"
+```
+
+Replace all `task_path` for `list_task_path `
+
+Replace all edit paths from `(@task)` to `(@task.list, @task)`
+
+Inside `tasks_controller.rb` add the following `private` method (and set it as a `before_action`)
+
+```
+def set_list
+	@list = List.find(params[:list_id])
+end
+```
+
+Pass `@list` as a param to `Task.new` in the `new` action inside `TasksController`
+
