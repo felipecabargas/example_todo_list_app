@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<h2>
+  <%= @list.name %>
+</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Body</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tasks.each do |task| %>
+      <tr>
+        <td>
+          <% if task.completed? %>
+            <strike><%= task.body %></strike>
+          <% else %>
+            <%= task.body %> <%= link_to "Edit", edit_list_task_path(@list, task) %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<%= link_to 'New Task', new_list_task_path(@list) %> |
+<%= link_to 'Edit', edit_list_path(@list) %> |
+<%= link_to 'Back', lists_path %>
