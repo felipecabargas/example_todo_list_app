@@ -2,11 +2,8 @@
 
 ```bash
 rails new example_app
-
 rails db:create
-
 rails generate scaffold List name:string
-
 rails generate scaffold Task body:string completed:boolean list:references
 ```
 
@@ -40,9 +37,8 @@ Inside `tasks_controller.rb` add the following `private` method (and set it as a
 
 ```
 def set_list
-	@list = List.find(params[:list_id])
+  @list = List.find(params[:list_id])
 end
 ```
 
 Pass `@list` as a param to `Task.new` in the `new` action inside `TasksController`
-
