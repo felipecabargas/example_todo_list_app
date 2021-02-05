@@ -5,6 +5,7 @@ rails new example_app
 rails db:create
 rails generate scaffold List name:string
 rails generate scaffold Task body:string completed:boolean list:references
+rails db:migrate
 ```
 
 Inside `Gemfile` add 
